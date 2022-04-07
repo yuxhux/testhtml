@@ -1,49 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Deeplink Test</title>
-</head>
-<body>
-<h1>Deeplink Test</h1>
-<h2>URL Link</h2>
-<input type="text" value="" id="deeplink-value" style="width: 100%" oninput="onValueChange()"/>
-<br/><br/><br/><br/>
-<span id="deeplink-text"></span>
-
-<a id="deeplink-url" target="_blank"></a>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script>
-    var url = "https://kevin-ul-test.herokuapp.com"
-    var timer = 5;
-    function onValueChange(){
-        url = $("#deeplink-value").val();
-        timer = 5;
-    }
-    function setHelpText (){
-        $("#deeplink-text").html(`Redirecting in ${timer} second to ${url}`)
-    }
-    function setHrefValue (){
-        $("#deeplink-value").val(url)
-        $("#deeplink-url").attr('href', url);
-    }
-    $(function() {
-
-        setHelpText ()
-        setHrefValue()
-
-        setInterval(function (){
-            if(timer > 0){
-                timer -= 1
-                setHelpText ()
-            }   else    {
-                // $("#deeplink-url").click()
-                location.href = url
-            }
-
-        },1000)
-    });
-</script>
-</body>
+<html>
+    <head>
+        <title>Example</title>
+    </head>
+    <body>
+        <p>This is an example of a simple HTML page with one paragraph.</p>
+    </body>
 </html>
-
