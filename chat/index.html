@@ -1,47 +1,48 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-  	<title>massive chat</title>
-  	<link rel="stylesheet" type="text/css" href="../css/styles.css">
-  	
-	<script src="/socket.io/socket.io.js"></script>
-	<script>
-		var socket = io.connect();
-		
-		socket.on('get-chat-message', function (data) {
-			var formattedMessage = data.details + '<br/>' + document.getElementById('divMessage').innerHTML;
-			document.getElementById('divMessage').innerHTML = formattedMessage;
-		});
-	  
-		function putMessage() {
-			var txtNick = document.getElementById('txtNick');
-			var txtMessage = document.getElementById('txtMessage');
-			socket.emit('chat-message', { nick: txtNick.value , message: txtMessage.value });
-			txtMessage.value = '';
-			txtMessage.focus();
-		}
-	</script>
+    <meta charset="UTF-8">
+    <title>Deeplink Test</title>
 </head>
 <body>
-	<h1>massive chat [node.js + socket.io]</h1>
-  <p>
-    <a href="/">&lt;&lt; back to experiments</a>
-  </p>
-	nickname: <input type="text" id="txtNick" /><br/>
-	message: <input type="text" id="txtMessage" />
-	<input type="submit" value="send" onclick="putMessage();">
-	<div id="divMessage" style="width:400px; height:400px; border: solid 1px; overflow: auto;"></div>
-	<script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-30926611-1']);
-    _gaq.push(['_trackPageview']);
+<h1>Deeplink Test</h1>
+<h2>URL Link</h2>
+<input type="text" value="" id="deeplink-value" style="width: 100%" oninput="onValueChange()"/>
+<br/><br/><br/><br/>
+<span id="deeplink-text"></span>
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+<a id="deeplink-url" target="_blank"></a>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script>
+    var url = "https://kevin-ul-test.herokuapp.com"
+    var timer = 5;
+    function onValueChange(){
+        url = $("#deeplink-value").val();
+        timer = 5;
+    }
+    function setHelpText (){
+        $("#deeplink-text").html(`Redirecting in ${timer} second to ${url}`)
+    }
+    function setHrefValue (){
+        $("#deeplink-value").val(url)
+        $("#deeplink-url").attr('href', url);
+    }
+    $(function() {
+
+        setHelpText ()
+        setHrefValue()
+
+        setInterval(function (){
+            if(timer > 0){
+                timer -= 1
+                setHelpText ()
+            }   else    {
+                // $("#deeplink-url").click()
+                location.href = url
+            }
+
+        },1000)
+    });
+</script>
 </body>
 </html>
